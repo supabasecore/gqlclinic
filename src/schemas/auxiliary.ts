@@ -29,6 +29,9 @@ export class Auxiliary extends BaseEntity {
   @Column({ type: "int", nullable: false })
   serviceId: number;
 
+  @Field(() => Service, { nullable: true })
+  service: Service | null;
+
   @ManyToOne(() => Service, (c) => c.auxiliarySchema)
   @JoinColumn({ name: "serviceId", referencedColumnName: "id" })
   serviceAuxiliary: Service;

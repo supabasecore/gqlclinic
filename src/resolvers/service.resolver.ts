@@ -67,6 +67,31 @@ export class ServiceResolver {
     }
   }
 
+  @Query(() => [Service], { nullable: true })
+  @UseMiddleware(isAuth)
+  async allServices(): Promise<Service[] | null> {
+    try {
+      const services = await Service.createQueryBuilder("s")
+        .select([
+          `"s"."id" as id`,
+          `"s"."title" as title`,
+          `"s"."description" as description`,
+          `JSON_BUILD_OBJECT(
+          'id', c.id,
+          'name', c.name
+        ) as "comprehensive"`,
+        ])
+        .leftJoin(Comprehensive, "c", `c.id = s."comprehensiveId"`)
+        .orderBy("s.createdAt", "DESC")
+        .getRawMany();
+
+      return services || null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
   @Mutation(() => ServiceResponse)
   async createService(
     @Arg("input") input: ServiceInput

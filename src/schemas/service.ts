@@ -60,8 +60,8 @@ export class Service extends BaseEntity {
   @Column({ type: "varchar", length: 250, nullable: false })
   description: string;
 
-  @Field(() => Comprehensive)
-  comprehensive: Comprehensive;
+  @Field(() => Comprehensive, { nullable: true })
+  comprehensive: Comprehensive | null;
 
   @Field(() => Date)
   @CreateDateColumn()

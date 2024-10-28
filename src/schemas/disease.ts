@@ -32,9 +32,9 @@ export class Disease extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isCourse: boolean;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @Column({ type: "int", default: 0 })
-  sickTime: number;
+  sickTime: number | null;
 
   @Field(() => String, { nullable: true })
   @Column({ type: "varchar", length: 250, nullable: true })

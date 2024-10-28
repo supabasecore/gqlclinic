@@ -3,8 +3,8 @@ import { InputType, Field, Int } from "type-graphql";
 
 @InputType()
 export class DiagnosticInput {
-  @Field(() => Int, { nullable: true })
-  diaryId: number | null;
+  @Field(() => Int, { nullable: false })
+  diaryId: number;
 
   @Field(() => String, { nullable: false })
   @TrimmedStringField()

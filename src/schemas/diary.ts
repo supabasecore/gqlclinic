@@ -97,6 +97,24 @@ export class Diary extends BaseEntity {
   @Column({ type: "timestamp", nullable: true })
   endTime: Date | null;
 
+  @Field(() => [Vital])
+  vital: Vital[];
+
+  @Field(() => [Auxiliary])
+  auxiliary: Auxiliary[];
+
+  @Field(() => [Diagnostic])
+  diagnostic: Diagnostic[];
+
+  @Field(() => [Treatment])
+  treatment: Treatment[];
+
+  @Field(() => [History])
+  history: History[];
+
+  @Field(() => [Disease])
+  disease: Disease[];
+
   @Field(() => Service)
   service: Service;
 

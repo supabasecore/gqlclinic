@@ -13,7 +13,7 @@ export class DiseaseInput {
   isCourse: boolean;
 
   @Field(() => Int, { nullable: true })
-  sickTime: number;
+  sickTime: number | null;
 
   @Field(() => String, { nullable: true })
   @TrimmedStringField()

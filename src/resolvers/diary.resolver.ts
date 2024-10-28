@@ -165,6 +165,111 @@ export class DiaryResolver {
           'lastname', "p"."lastname",
           'phone', "p"."phone"
         ) as "patient"`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', vt.id,
+                'diaryId', vt."diaryId",
+                'height', vt.height,
+                'weight', vt.weight,
+                'temp', vt.temp,
+                'arterial', vt.arterial,
+                'cardiac', vt.cardiac,
+                'respiratory', vt.respiratory,
+                'oxygen', vt.oxygen,
+                'comment', vt.comment
+              )
+            ),
+            '[]'::json
+          )
+          FROM vital vt
+          WHERE vt."diaryId" = d.id
+        ) AS vital`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', ax.id,
+                'diaryId', ax."diaryId",
+                'comment', COALESCE(ax.comment, null),
+                'service', JSON_BUILD_OBJECT(
+                  'id', "s"."id",
+                  'title', "s"."title"
+                )
+              )
+            ),
+            '[]'::json
+          ) FROM auxiliary ax LEFT JOIN service s ON ax."diaryId" = d.id WHERE ax."serviceId" = s.id
+        ) AS auxiliary`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', dg.id,
+                'diaryId', dg."diaryId",
+                'cie', dg.cie,
+                'description', dg.description,
+                'presumptive', COALESCE(dg.presumptive, null),
+                'definitive', COALESCE(dg.definitive, null),
+                'repetitive', COALESCE(dg.repetitive, null)
+              )
+            ),
+            '[]'::json
+          )
+          FROM diagnostic dg
+          WHERE dg."diaryId" = d.id
+        ) AS diagnostic`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', tr.id,
+                'diaryId', tr."diaryId",
+                'medicine', COALESCE(tr.medicine, null),
+                'presentation', COALESCE(tr.presentation, null),
+                'quantity', COALESCE(tr.quantity, null),
+                'dose', COALESCE(tr.dose, null),
+                'days', COALESCE(tr.days, null)
+              )
+            ),
+            '[]'::json
+          )
+          FROM treatment tr
+          WHERE tr."diaryId" = d.id
+        ) AS treatment`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', ht.id,
+                'diaryId', ht."diaryId",
+                'person', ht.person,
+                'disease', ht.disease
+              )
+            ),
+            '[]'::json
+          )
+          FROM history ht
+          WHERE ht."diaryId" = d.id
+        ) AS history`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', ds.id,
+                'diaryId', ds."diaryId",
+                'isStart', ds."isStart",
+                'isCourse', ds."isCourse",
+                'sickTime', ds."sickTime",
+                'comment', COALESCE(ds."comment", null)
+              )
+            ),
+            '[]'::json
+          )
+          FROM disease ds
+          WHERE ds."diaryId" = d.id
+        ) AS disease`,
         ])
         .leftJoin(Patient, "p", `p.id = d."patientId"`)
         .leftJoin(Service, "s", `s.id = d."serviceId"`)
@@ -361,6 +466,111 @@ export class DiaryResolver {
           'lastname', "p"."lastname",
           'phone', "p"."phone"
         ) as "patient"`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', vt.id,
+                'diaryId', vt."diaryId",
+                'height', vt.height,
+                'weight', vt.weight,
+                'temp', vt.temp,
+                'arterial', vt.arterial,
+                'cardiac', vt.cardiac,
+                'respiratory', vt.respiratory,
+                'oxygen', vt.oxygen,
+                'comment', vt.comment
+              )
+            ),
+            '[]'::json
+          )
+          FROM vital vt
+          WHERE vt."diaryId" = d.id
+        ) AS vital`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', ax.id,
+                'diaryId', ax."diaryId",
+                'comment', COALESCE(ax.comment, null),
+                'service', JSON_BUILD_OBJECT(
+                  'id', "s"."id",
+                  'title', "s"."title"
+                )
+              )
+            ),
+            '[]'::json
+          ) FROM auxiliary ax LEFT JOIN service s ON ax."diaryId" = d.id WHERE ax."serviceId" = s.id
+        ) AS auxiliary`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', dg.id,
+                'diaryId', dg."diaryId",
+                'cie', dg.cie,
+                'description', dg.description,
+                'presumptive', COALESCE(dg.presumptive, null),
+                'definitive', COALESCE(dg.definitive, null),
+                'repetitive', COALESCE(dg.repetitive, null)
+              )
+            ),
+            '[]'::json
+          )
+          FROM diagnostic dg
+          WHERE dg."diaryId" = d.id
+        ) AS diagnostic`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', tr.id,
+                'diaryId', tr."diaryId",
+                'medicine', COALESCE(tr.medicine, null),
+                'presentation', COALESCE(tr.presentation, null),
+                'quantity', COALESCE(tr.quantity, null),
+                'dose', COALESCE(tr.dose, null),
+                'days', COALESCE(tr.days, null)
+              )
+            ),
+            '[]'::json
+          )
+          FROM treatment tr
+          WHERE tr."diaryId" = d.id
+        ) AS treatment`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', ht.id,
+                'diaryId', ht."diaryId",
+                'person', ht.person,
+                'disease', ht.disease
+              )
+            ),
+            '[]'::json
+          )
+          FROM history ht
+          WHERE ht."diaryId" = d.id
+        ) AS history`,
+          `(
+          SELECT COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', ds.id,
+                'diaryId', ds."diaryId",
+                'isStart', ds."isStart",
+                'isCourse', ds."isCourse",
+                'sickTime', ds."sickTime",
+                'comment', COALESCE(ds."comment", null)
+              )
+            ),
+            '[]'::json
+          )
+          FROM disease ds
+          WHERE ds."diaryId" = d.id
+        ) AS disease`,
         ])
         .leftJoin(Patient, "p", `p.id = d."patientId"`)
         .leftJoin(Service, "s", `s.id = d."serviceId"`)

@@ -16,20 +16,20 @@ export class Treatment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Int, { nullable: true })
-  @Column({ type: "int", nullable: true })
-  diaryId: number | null;
+  @Field(() => Int, { nullable: false })
+  @Column({ type: "int", nullable: false })
+  diaryId: number;
 
   @ManyToOne(() => Diary, (c) => c.treatmentSchema)
   @JoinColumn({ name: "diaryId", referencedColumnName: "id" })
   treatmentDiary: Diary;
 
   @Field(() => String, { nullable: true })
-  @Column({ type: "varchar", length: 250, nullable: true })
+  @Column({ type: "text", nullable: true })
   medicine: string | null;
 
   @Field(() => String, { nullable: true })
-  @Column({ type: "varchar", length: 250, nullable: true })
+  @Column({ type: "text", nullable: true })
   presentation: string | null;
 
   @Field(() => Int, { nullable: true })

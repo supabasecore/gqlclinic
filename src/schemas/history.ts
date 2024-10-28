@@ -9,9 +9,9 @@ export class History extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Int, { nullable: true })
-  @Column({ type: "int", nullable: true })
-  diaryId: number | null;
+  @Field(() => Int, { nullable: false })
+  @Column({ type: "int", nullable: false })
+  diaryId: number;
 
   @ManyToOne(() => Diary, (c) => c.historySchema)
   @JoinColumn({ name: "diaryId", referencedColumnName: "id" })

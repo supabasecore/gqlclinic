@@ -16,41 +16,41 @@ export class Vital extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Int, { nullable: true })
-  @Column({ type: "int", nullable: true })
-  diaryId: number | null;
+  @Field(() => Int, { nullable: false })
+  @Column({ type: "int", nullable: false })
+  diaryId: number;
 
   @ManyToOne(() => Diary, (c) => c.vitalSchema)
   @JoinColumn({ name: "diaryId", referencedColumnName: "id" })
   diarySchema: Diary;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  weight: number;
+  weight: number | null;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  height: number;
+  height: number | null;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  temp: number;
+  temp: number | null;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  arterial: number;
+  arterial: number | null;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  cardiac: number;
+  cardiac: number | null;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  respiratory: number;
+  respiratory: number | null;
 
-  @Field(() => Float)
+  @Field(() => Float, { nullable: true })
   @Column({ type: "decimal", default: 0 })
-  oxygen: number;
+  oxygen: number | null;
 
   @Field(() => String)
   @Column({ type: "varchar" })

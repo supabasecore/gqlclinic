@@ -6,28 +6,28 @@ export class VitalInput {
   @Field(() => Int, { nullable: false })
   diaryId: number;
 
-  @Field(() => Float, { nullable: false })
-  height: number;
+  @Field(() => Float, { nullable: true })
+  height: number | null;
 
-  @Field(() => Float, { nullable: false })
-  weight: number;
+  @Field(() => Float, { nullable: true })
+  weight: number | null;
 
-  @Field(() => Float, { nullable: false })
-  temp: number;
+  @Field(() => Float, { nullable: true })
+  temp: number | null;
 
-  @Field(() => Float, { nullable: false })
-  arterial: number;
+  @Field(() => Float, { nullable: true })
+  arterial: number | null;
 
-  @Field(() => Float, { nullable: false })
-  cardiac: number;
+  @Field(() => Float, { nullable: true })
+  cardiac: number | null;
 
-  @Field(() => Float, { nullable: false })
-  respiratory: number;
+  @Field(() => Float, { nullable: true })
+  respiratory: number | null;
 
-  @Field(() => Float, { nullable: false })
-  oxygen: number;
+  @Field(() => Float, { nullable: true })
+  oxygen: number | null;
 
-  @Field(() => String, { nullable: false })
+  @Field(() => String, { nullable: true })
   @TrimmedStringField()
   comment: string;
 }
