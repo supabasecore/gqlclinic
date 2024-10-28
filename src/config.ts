@@ -13,7 +13,7 @@ import { Patient } from "./schemas/patient";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  url: "postgresql://postgres.rtpmvliudhfwqjvciizz:supabase.com@aws-0-us-west-1.pooler.supabase.com:6543/postgres",
+  url: "postgresql://postgres.kxbayzrafbdlnbevslin:supabase.com@aws-0-us-west-1.pooler.supabase.com:6543/postgres",
   logging: true,
   synchronize: true,
   entities: [
