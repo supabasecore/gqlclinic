@@ -111,14 +111,14 @@ export class DiaryResolver {
       }
 
       const patient = await Patient.findOne({
-        where: { dni: input.patientId },
+        where: { id: input.patientId },
       });
 
       if (!patient) {
         return {
           errors: [
             {
-              field: "patientId",
+              field: "intervention",
               message: "El paciente no ha sido registrado por la clínica.",
             },
           ],

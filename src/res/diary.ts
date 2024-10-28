@@ -6,8 +6,8 @@ export class DiaryInput {
   @Field(() => Int, { nullable: false })
   serviceId: number;
 
-  @Field(() => String, { nullable: false })
-  patientId: string;
+  @Field(() => Int, { nullable: false })
+  patientId: number;
 
   @Field(() => Float, { nullable: true })
   price: number;
